@@ -7,13 +7,13 @@ import com.guideit.commons.extensions.Result
 import com.guideit.commons.viewmodel.ChannelEventSenderImpl
 import com.guideit.commons.viewmodel.EventSender
 import com.guideit.domain.model.QuoteSymbol
-import com.guideit.domain.usecase.FinanceUseCase
+import com.guideit.domain.repository.FinanceRepository
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class GraphViewModel @Inject constructor(
-    private val useCase: FinanceUseCase
+    private val repository: FinanceRepository
 ) : ViewModel(), EventSender<GraphViewModel.ScreenEvent> by ChannelEventSenderImpl() {
 
     val uiState = GraphScreenUiState()
@@ -28,7 +28,7 @@ class GraphViewModel @Inject constructor(
 
     private fun fetchStock() = viewModelScope.launch {
         uiState.screenState.value = ScreenState.Loading
-        when (val result = useCase.execute()) {
+        when (val result = repository.getStock(stock = "PETR4.SA")) {
             is Result.Failure ->
                 uiState.screenState.value = ScreenState.Failure(result.error)
             is Result.Success ->
