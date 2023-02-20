@@ -1,0 +1,49 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+}
+apply from: "../dependencies.gradle"
+
+android {
+    namespace 'com.guideit.dsc'
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 24
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility 11
+        targetCompatibility 11
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Versions.compose
+        kotlinCompilerVersion Versions.kotlinStdLib
+    }
+}
+
+dependencies {
+
+    api "com.google.android.material:material:${Versions.material}"
+
+    api "androidx.compose.material:material:${Versions.compose}"
+    api "androidx.compose.ui:ui-tooling:${Versions.composeTooling}"
+
+    implementation "com.airbnb.android:lottie-compose:${Versions.lottieCompose}"
+}

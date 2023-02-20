@@ -1,0 +1,71 @@
+plugins {
+    id 'com.android.library'
+    id 'org.jetbrains.kotlin.android'
+    id 'kotlin-kapt'
+}
+apply from: "../dependencies.gradle"
+
+android {
+    namespace 'com.guideit.common'
+    compileSdk 33
+
+    defaultConfig {
+        minSdk 24
+        targetSdk 33
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles "consumer-rules.pro"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility 11
+        targetCompatibility 11
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
+    }
+    buildFeatures {
+        compose true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion Versions.compose
+        kotlinCompilerVersion Versions.kotlinStdLib
+    }
+}
+
+dependencies {
+
+    api fileTree(dir: 'libs', include: ['*.jar'])
+
+    // Compose
+    api "androidx.compose.ui:ui-tooling:${Versions.composeTooling}"
+    api "androidx.compose.material:material:${Versions.compose}"
+    api "androidx.activity:activity-compose:${Versions.composeActivity}"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-compose:${Versions.composeViewModel}"
+    api "androidx.navigation:navigation-compose:${Versions.navigation}"
+
+    // Dagger2
+    api AndroidLibs.dagger
+    api AndroidLibs.daggerAndroid
+    api AndroidLibs.daggerSupport
+    kapt AndroidLibs.daggerCompiler
+    kapt AndroidLibs.daggerProcessor
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach{
+    kotlinOptions{
+        freeCompilerArgs +=["-Xjvm-default=all",]
+    }
+}
+
+tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).configureEach{
+    kotlinOptions{
+        freeCompilerArgs +=["-Xjvm-default=all",]
+    }
+}

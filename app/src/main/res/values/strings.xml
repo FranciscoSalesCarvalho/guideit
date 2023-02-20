@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">GuideIt</string>
+    <string name="option_information">Informações</string>
+    <string name="option_chart">Gráfico</string>
+    <string name="loading_progress_subtitle">Wait a minute!</string>
+    <string name="loading_progress_title">Loading Stock</string>
+    <string name="retry">Try again</string>
+</resources>
