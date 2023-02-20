@@ -48,7 +48,7 @@ private fun EventConsumer(
     LaunchedEffect(key1 = viewModel) {
         viewModel.eventsFlow.collect { event ->
             when (event) {
-                ScreenEvent.GoBack -> activity.onBackPressed()
+                ScreenEvent.GoBack -> activity.onBackPressedDispatcher.onBackPressed()
             }
         }
     }

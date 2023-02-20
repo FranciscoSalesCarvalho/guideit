@@ -98,19 +98,3 @@ private fun GuideItErrorDialog(
         }
     }
 }
-
-internal fun FragmentActivity.showScreenErrorDialog(
-    error: Error,
-    onRetryClicked: () -> Unit = {},
-    onCloseClicked: () -> Unit = {},
-    cancelable: Boolean = true
-) {
-    showErrorFullDialog {
-        this.title = error.title
-        this.message = error.message
-        this.bottomButtonText = getString(R.string.retry)
-        this.onBottomButtonClick = onRetryClicked
-        this.onCloseClick = onCloseClicked
-        this.cancelable = cancelable
-    }
-}

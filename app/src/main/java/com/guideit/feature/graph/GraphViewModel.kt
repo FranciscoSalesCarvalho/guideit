@@ -6,7 +6,6 @@ import com.guideit.commons.error.Error
 import com.guideit.commons.extensions.Result
 import com.guideit.commons.viewmodel.ChannelEventSenderImpl
 import com.guideit.commons.viewmodel.EventSender
-import com.guideit.data.model.Stock
 import com.guideit.domain.model.QuoteSymbol
 import com.guideit.domain.usecase.FinanceUseCase
 import kotlinx.coroutines.flow.MutableStateFlow

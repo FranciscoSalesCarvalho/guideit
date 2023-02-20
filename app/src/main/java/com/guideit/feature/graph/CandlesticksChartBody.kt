@@ -39,7 +39,7 @@ fun CandlesticksChartBody(
         update = { chart ->
             chart.data = prepareCandlesticksData(data, selectedStockIndex)
             chart.description.text = "${timeframe.name}ly timeframe"
-            (chart as CandleStickChart).updateTimeframe(data, timeframe)
+            (chart as CandleStickChart).updateTimeframe()
             chart.invalidate()
         }
     )
@@ -57,13 +57,8 @@ fun createCandleSticksChart(
     return chart
 }
 
-private fun CandleStickChart.updateTimeframe(data: List<QuoteSymbol>, timeframe: Timeframe) {
-    //todo change between stocks
-    val timestamps = data[0].timestamps
+private fun CandleStickChart.updateTimeframe() {
     val xAxisFormatter: ValueFormatter = DefaultAxisValueFormatter(3)
-    //todo try to apply correct timestamps
-    //        if (timeframe == Timeframe.Week) CandlestickWeekAxisValueFormatter(timestamps)
-    //        else CandlestickMonthAxisValueFormatter(timestamps)
     this.xAxis.valueFormatter = xAxisFormatter
 }
 
@@ -73,7 +68,7 @@ private fun prepareCandlesticksData(
 ): CandleData {
     val quoteSymbol = data[selectedStockIndex]
     val candleEntries: List<CandleEntry> =
-        quoteSymbol.timestamps.mapIndexed { index, _ ->
+        List(quoteSymbol.timestamps.size) { index ->
             val high = quoteSymbol.high[index]
             val low = quoteSymbol.low[index]
             val open = quoteSymbol.open[index]
